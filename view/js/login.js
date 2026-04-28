@@ -1,3 +1,5 @@
+axios.defaults.baseURL = SERVER
+
 const toast = new Notyf({
       position: {
             x: 'center',
@@ -5,6 +7,12 @@ const toast = new Notyf({
             }
 }
 );
+
+//this is used because so user dont have to login if user already login and redirect to dashboard page automaticaly
+const token = localStorage.getItem("authToken");
+if (token) {
+  location.href = "/dashboard";
+}
 
 
 const login=async(e)=>{
@@ -19,12 +27,15 @@ const login=async(e)=>{
             password:elements.password.value
         }
         
-        const user = await axios.post("http://localhost:8080/login", payload);
+        const user = await axios.post("/api/login", payload);
         // console.log(user.data.message);
         toast.success(user.data.message);
-
+        localStorage.setItem("authToken", user.data.token)
+         
+        
+         
         setTimeout(()=>{
-         location.href="/app/dashboard.html"
+         location.href="/dashboard"
         },2000) 
     }
     catch(error){

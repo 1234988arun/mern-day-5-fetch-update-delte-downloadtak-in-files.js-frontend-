@@ -1,3 +1,4 @@
+axios.defaults.baseURL = SERVER
 const toggleDrawer = ()=>{
     const drawer = document.getElementById("drawer")
     const rightValue = drawer.style.right
