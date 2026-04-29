@@ -5,7 +5,7 @@ const getsession = async () => {
 
   if (!session) {
     location.href = "/login";
-    return;
+    return null;
   }
 
   try {
@@ -13,8 +13,8 @@ const getsession = async () => {
       "/api/token/verify",
       { token: session }
     );
-
-    console.log("User verified:", user.data);
+     return user.data
+    // console.log("User verified:", user.data);
 
   } catch (error) {
     // ❌ don't blindly clear everything

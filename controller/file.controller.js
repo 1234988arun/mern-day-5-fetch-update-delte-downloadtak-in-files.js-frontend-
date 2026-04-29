@@ -9,17 +9,18 @@ const createFile = async(req,res)=>{
         //  console.log(file)//for reading the file or storing the file we have to use multer go to index.js
         // console.log(req.file);
         // res.send("success");
-      
+        // console.log(req.body);
         const file = req.file
+        const {filename} = req.body
         const payload ={
         path:file.destination+file.filename,
-        filename:file.filename,
+        filename:filename,
         type:file.mimetype.split("/")[0],
         size:file.size
         }
 
         const x = await fileModel.create(payload)
-        console.log(x)
+        // console.log(x)
         res.send(x);
     }
     catch(err){
